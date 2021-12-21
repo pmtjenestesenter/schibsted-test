@@ -1,0 +1,42 @@
+const config = `{
+  nativeRenderer: function (adObject) {
+    return '';
+    var ad = AdNative.create(adObject.targetId, adObject.native, {
+      premium: {
+        flexible: true,
+      },
+    });
+    return ad.getAdElement();
+  },
+  // This function is responsible for determining how often Ad will be show
+  // the number of liveblog entries inbetween ads
+  shouldRenderAd: function (currentIndex) {
+    return !(currentIndex >= 0 && (currentIndex - 2) % 4 !== 0);
+  },
+  memberId: 9700,
+  apnexusConfig: {
+    'aa-sch-country_code': 'no',
+    'aa-sch-page_type': 'article',
+    'aa-sch-publisher': 'no-faedrelandsvennen',
+    'no-sno-publishergroup': 'polaris',
+  },
+  currentDevice: window.matchMedia('(min-width: 490px)').matches ? 'desktop' : 'phone',
+  deviceMapping: {
+    phone: {
+      invCode: 'no-faedrelandsvennen-wph-live_board_1',
+      invCodeTag: 'wph',
+      placement: 'board',
+      keywords: { 'no-sno-adformat': 'board_1'},
+      sizes: [[320, 250], [320, 400]],
+    },
+    desktop: {
+      invCode: 'no-faedrelandsvennen-wph-live_netboard_1',
+      invCodeTag: 'wde',
+      placement: 'netboard',
+      keywords: { 'no-sno-adformat': 'netboard_1'},
+      sizes: [[580, 400], [580, 500]],
+    },
+  },
+}`;
+
+module.exports = config;
